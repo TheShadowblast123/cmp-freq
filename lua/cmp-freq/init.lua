@@ -129,6 +129,9 @@ end
 M.setup = function(opts)
 	user_config = vim.tbl_deep_extend("force", default_config, opts or {})
 	setup_commands()
+	  vim.schedule(function()
+    require("cmp").register_source("cmp-freq", M.new())
+  end)
 end
 M.new = function()
 	return setmetatable({}, { __index = M })
