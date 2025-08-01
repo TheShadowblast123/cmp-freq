@@ -19,9 +19,9 @@ local wordlists_cache = {}
 -- Merge the list of languages from buffer override, spelllang, or default
 local function get_active_langs(bufnr)
 	-- buf override
-	--	if vim.b[bufnr].cmp_wordlist_lang then
-	--		return { vim.b[bufnr].cmp_wordlist_lang }
-	--	end
+	if vim.b[bufnr].cmp_wordlist_lang then
+		return { vim.b[bufnr].cmp_wordlist_lang }
+	end
 
 	-- from spelllang
 	local sl = vim.opt_local.spelllang:get() or {}
@@ -129,7 +129,9 @@ end
 M.setup = function(opts)
 	user_config = vim.tbl_deep_extend("force", default_config, opts or {})
 	setup_commands()
-	cmp.register_source("cmp-freq", M.new())
+	vim.schedule(function()
+		cmp.register_source("cmp-freq", M.new())
+	end)
 end
 M.new = function()
 	return setmetatable({}, { __index = M })
