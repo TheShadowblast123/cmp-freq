@@ -104,6 +104,7 @@ local function setup_commands()
 		complete = function(ArgLead)
 			-- complete available .bin files in lists_dir
 			local files = vim.fn.globpath(user_config.lists_dir, "*.bin", false, true)
+
 			local langs = {}
 			for _, f in ipairs(files) do
 				langs[#langs + 1] = vim.fn.fnamemodify(f, ":t:r")
@@ -125,13 +126,9 @@ local function setup_commands()
 	end
 end
 
--- 8) Source API
 M.setup = function(opts)
 	user_config = vim.tbl_deep_extend("force", default_config, opts or {})
 	setup_commands()
-	vim.schedule(function()
-		cmp.register_source("cmp-freq", M.new())
-	end)
 end
 M.new = function()
 	return setmetatable({}, { __index = M })
