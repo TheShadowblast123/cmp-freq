@@ -127,6 +127,7 @@ print("[cmp-freq] Setup Started")
 	setup_commands()
 	  vim.schedule(function()
 	  print("[cmp-freq] Registering source")
+	  vim.fn.input("Press Enter to continue...")
     require("cmp").register_source("cmp-freq", M.new())
   end)
   print("[cmp-freq] Setup Finished")
@@ -141,6 +142,7 @@ function M:is_available()
 end
 
 function M:complete(params, callback)
+	print("CMP FREQ COMPLETING")
 	local bufnr = params.bufnr
 	local langs = get_active_langs(bufnr)
 	local wordlist = load_wordlist(langs)
