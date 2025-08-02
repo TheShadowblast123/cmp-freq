@@ -35,7 +35,7 @@ local function load_one(lang)
 		return wordlists_cache[lang]
 	end
 	local paths = {
-	debug.getinfo(1, "S").source:sub(2):sub(1, -10).. "/lists/" .. lang .. ".bin",
+		debug.getinfo(1, "S").source:sub(2):sub(1, -10).. "/lists/" .. lang .. ".bin",
 		user_config.lists_dir .. "/" .. lang .. ".bin",
 	}
 	for _, p in ipairs(paths) do
@@ -101,7 +101,6 @@ M.setup = function(opts)
 	end
 	user_config.lists_dir = opts.lists_dir or default_config.lists_dir
 	  vim.schedule(function()
-	  print(vim.inspect(user_config.case_sensitive))
     require("cmp").register_source("cmp-freq", M.new())
   end)
 end
@@ -133,7 +132,6 @@ function M:complete(params, callback)
 	local output = {}
 	local res = ""
 	for _, words in pairs(wordlist) do
-		print(vim.inspect("here"))
 		local matches = complete_prefix(words, input, user_config.max_items, user_config.case_sensitive)
 		for _, match in ipairs(matches) do
 			table.insert(output, match)
