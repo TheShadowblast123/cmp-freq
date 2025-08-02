@@ -78,7 +78,11 @@ local function complete_prefix(wordlist, input, max_items, case_sensitive)
 end
 
 M.setup = function(opts)
-	user_config = default_config or opts
+	user_config = {}
+	user_config.default_lang = opts.default_lang or default_config.default_lang
+	user_config.max_items = opts.max_items or default_config.max_items
+	user_config.case_sensitive = opts.case_sensitive or default_config.case_sensitive
+	user_config.lists_dir = opts.lists_dir or default_config.lists_dir
 	  vim.schedule(function()
     require("cmp").register_source("cmp-freq", M.new())
   end)
