@@ -92,6 +92,9 @@ end
 
 M.setup = function(opts)
 	user_config = {}
+	if opts == nil then
+		opts = {}
+	end
 	user_config.default_lang = opts.default_lang or default_config.default_lang
 	user_config.max_items = opts.max_items or default_config.max_items
 	if opts.case_sensitive == nil then
